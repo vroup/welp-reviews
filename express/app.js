@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 
 /**** Configuration ****/
-const port = (process.env.PORT || 8080);
+const port = process.env.PORT || 8080;
 const app = express();
 app.use(bodyParser.json()); // Parse JSON from the request body
 app.use(morgan('combined')); // Log all requests to the console
@@ -45,6 +45,7 @@ app.post('/api/my_data', (req, res) => {
 
 /**** Reroute all unknown requests to angular index.html ****/
 app.get('/*', (req, res, next) => {
+  console.log("unknown req intercepted", path.join(__dirname, '../dist/Exam/index.html'));
   res.sendFile(path.join(__dirname, '../dist/Exam/index.html'));
 });
 
